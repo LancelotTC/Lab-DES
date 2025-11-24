@@ -1,10 +1,12 @@
 from feistel_implementation import feistel_encrypt, feistel_decrypt
+from utils import derive_keys
 
 if __name__ != "__main__":
     quit()
 
+
 # Example
-keys = [0x11111111, 0x22222222, 0x33333333, 0x44444444]
+keys = derive_keys(master_key=0xA5A5A5A5, n=16)
 plaintext = 0xDEADBEEFCAFEBABE
 
 
