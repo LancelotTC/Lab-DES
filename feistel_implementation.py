@@ -8,19 +8,20 @@ def feistel_round(left: int, right: int, key: int, f: Callable[[int, int], int])
 
 def simple_f(x: int, k: int):
     # Tiny round function: just mixes x with key
-    return (x ^ k) & 0xFFFFFFFF
+    return (x + k) & 0xFFFFFFFF
 
 
 def feistel_encrypt(
-    block: int, keys: list[int], f: Callable[[int, int], int] = simple_f
+    plaintext: str, keys: list[int], f: Callable[[int, int], int] = simple_f
 ):
-    L = (block >> 32) & 0xFFFFFFFF
-    R = block & 0xFFFFFFFF
+    block = int(plaintext.encode().hex(), 16)
 
+    L = (block >> half_length) & 0xFFFFFFFF
+    R = block & 0xFFFFFFFF
     for k in keys:
         L, R = feistel_round(L, R, k, f)
 
-    return (L << 32) | R
+    return (L << half_length) | R
 
 
 def feistel_decrypt(
@@ -33,4 +34,6 @@ def feistel_decrypt(
         # Inverse of (L, R) -> (R, L ^ F(R, k))
         L, R = (R ^ f(L, k)) & 0xFFFFFFFF, L
 
-    return (L << 32) | R
+    hex_deciphered = (L << 32) | R
+
+    return bytes.fromhex(hex(hex_deciphered).removeprefix("0x")).decode()
