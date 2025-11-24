@@ -1,5 +1,8 @@
 from feistel_implementation import feistel_encrypt, feistel_decrypt
 
+if __name__ != "__main__":
+    quit()
+
 # Example
 keys = [0x11111111, 0x22222222, 0x33333333, 0x44444444]
 plaintext = 0xDEADBEEFCAFEBABE
