@@ -11,10 +11,10 @@ def simple_f(x: int, k: int):
     return (x + k) & 0xFFFFFFFF
 
 
-def feistel_encrypt(
-    plaintext: str, keys: list[int], f: Callable[[int, int], int] = simple_f
-):
+def feistel_encrypt(plaintext: str, keys: list[int], f: Callable[[int, int], int] = simple_f):
     block = int(plaintext.encode().hex(), 16)
+
+    half_length = (((block.bit_length() + 7) // 8) * 8) // 2
 
     L = (block >> half_length) & 0xFFFFFFFF
     R = block & 0xFFFFFFFF
@@ -24,9 +24,7 @@ def feistel_encrypt(
     return (L << half_length) | R
 
 
-def feistel_decrypt(
-    block: int, keys: list[int], f: Callable[[int, int], int] = simple_f
-):
+def feistel_decrypt(block: int, keys: list[int], f: Callable[[int, int], int] = simple_f):
     L = (block >> 32) & 0xFFFFFFFF
     R = block & 0xFFFFFFFF
 
