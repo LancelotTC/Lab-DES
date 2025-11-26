@@ -8,7 +8,7 @@ def feistel_round(left: int, right: int, key: int, f: Callable[[int, int], int])
 
 def simple_f(x: int, k: int):
     # Tiny round function: just mixes x with key
-    return (x + k) & 0xFFFFFFFF
+    return (x ^ k) & 0xFFFFFFFF
 
 
 def feistel_encrypt(plaintext: str, keys: list[int], f: Callable[[int, int], int] = simple_f):
