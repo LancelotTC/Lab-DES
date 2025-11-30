@@ -9,7 +9,7 @@ MASTER_KEY = 0xA5A5A5A5
 
 # Example
 keys = derive_keys(master_key=MASTER_KEY, n=16)
-plaintext = "Lancelot"
+plaintext = "Sample text"
 
 
 cipher = feistel_encrypt(plaintext, keys)

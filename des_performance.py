@@ -6,12 +6,12 @@ from des import *
 def benchmark_des(key8: bytes):
     results = []
 
-    for n in range(10, 27):  # 2^10 .. 2^26
+    for n in range(10, 27):
         size = 2**n
         msg = os.urandom(size)
 
         t0 = time.perf_counter()
-        des_encrypt_any(msg, key8)  # your DES wrapper (works on any size)
+        des_encrypt_any(msg, key8)
         t1 = time.perf_counter()
 
         results.append((size, t1 - t0))

@@ -2,12 +2,10 @@ from collections.abc import Callable
 
 
 def feistel_round(left: int, right: int, key: int, f: Callable[[int, int], int]):
-    # One encryption round: L', R' = R, L XOR F(R, key)
     return right, (left ^ f(right, key)) & 0xFFFFFFFF
 
 
 def simple_f(x: int, k: int):
-    # Tiny round function: just mixes x with key
     return (x ^ k) & 0xFFFFFFFF
 
 
@@ -29,7 +27,6 @@ def feistel_decrypt(block: int, keys: list[int], f: Callable[[int, int], int] = 
     R = block & 0xFFFFFFFF
 
     for k in reversed(keys):
-        # Inverse of (L, R) -> (R, L ^ F(R, k))
         L, R = (R ^ f(L, k)) & 0xFFFFFFFF, L
 
     hex_deciphered = (L << 32) | R
