@@ -20,6 +20,5 @@ def benchmark_des(key8: bytes):
     return results
 
 
-# Example usage
 key = b"ABCDEFGH"
 results = benchmark_des(key)

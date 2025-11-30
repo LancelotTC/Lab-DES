@@ -7,7 +7,6 @@ if __name__ != "__main__":
 
 MASTER_KEY = 0xA5A5A5A5
 
-# Example
 keys = derive_keys(master_key=MASTER_KEY, n=16)
 plaintext = "Sample text"
 
